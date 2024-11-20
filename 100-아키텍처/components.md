@@ -34,7 +34,7 @@ endnote
 ```
 
 
-## Users who use a omponents
+## Users who use a components
 
 ```plantuml
 @startuml

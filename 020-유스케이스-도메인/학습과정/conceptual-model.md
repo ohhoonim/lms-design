@@ -1,185 +1,111 @@
 # 학습과정
 
-## 모델
+## 개념 모델
 
 ```plantuml
 @startuml
-package model {
-    class Manager <User vo>
-    '학습과정(커리큘럼)
-    class Curriculum {
-        id: Long
-        curriculumName: String
-        curriculumRound: CurriculumRound
-        manager: Manger
-        learningTarget: String
-        useYn: Boolean
-        subjects: List<Subject>
-        contents: String 
-    }
-    note left 
-        curriculum은 동일 과목에 차수만 달리될 수 있다. 
-        subject정보는 동일하다
-        차수는 일정과 관련이 있다. 
-    end note
-    
-    Manager .. Curriculum
-    
-    class CurriculumRound {
-        id: Long
-        roundName: String
-        round: Integer
-        startDate: LocalDate
-        endDate: LocalDate
-        textbook: String
-        
-    }
+skinparam monochrome reverse
+skinparam shadowing true
 
-    class RoundLecturePlan {
-        curriculumRound: CurriculumRound
-        lecture: Lecture
-        professors: Set<Professor>
-        assistants: Set<Assistant>
-        lecatureStartDateTime: LocalDateTime
-        lecatureEndtDateTime: LocalDateTime
-    }
+title Conceptual
+rectangle "강의 계획서" {
 
-    class ClassHollyday <Hellyday vo> 
+	class Syllabus {
+		title: String
+		timeOfHour: Integer
+		timeUnit: String { hour | minute }
+		professor: Professor 
+		---
+		lectureMethods(): Set {distinct lectures's LectureMethod}
+	}
 
-    Curriculum "1" *-- "1..*" CurriculumRound
-    CurriculumRound -- RoundLecturePlan : generate >
-    CurriculumRound ...> Lecture : use
-    CurriculumRound .left.> ClassHollyday: use
+	class Lecture {
+		round: Integer {ordered}
+		title: String
+		lectureMethod: [0..*] { online | offline | both}
+		timeOfHour: Integer {Syllabus.timeUnit 규칙 따름}
+		content: String
+		isCompleted: Boolean	
+		professor: Professor
+		assistant: Assistant
+	}
 
-    '과목
-    class Subject {
-        id: UUID
-        subejctName: String
-        lectureMethods: Set<LectureMethod>
-        professor: Professor
-        syllabus: Syllabus
-        useYn: Boolean
-        completed: CompletedStatus
-        
-    }
-    note top
-        subject는 차수관리를 하지 않는다. 
-        syllabus가 다르면 다른 과목으로 취급한다
-    end note
-    '강의계획서
-    class Syllabus  {
-        id: UUID
-        syllabusTitle: String
-        lectureMethods : transient Set<LectureMethod>
-        numberOfLectureHours : Integer
-        unitOfLecture : UnitOfLecture
-        representativeProfessor : Professor
-        completed : transient CompletedStatus 
-        lectures: List<Lecture>
-        
-    }
-    class Lecture {
-        id: UUID
-        lectureSequence: Integer
-        lectureTitle: String
-        lectureMethod: LectureMethod
-        numberOfLectureHours : Integer
-        evaluationMethod: EvaluationMethod
-        lectureContents: String
-        teacher: Professor
-        assistant : Assistant
-        completed: CompletedStatus 
-    }
-
-    class Professor <User vo> 
-    class Assistant <User vo>
-
-    Curriculum [curriculumRound] "1..*" --- "1..*" Subject : add >
-    Subject *-- Syllabus : set >
-    Syllabus "1" -right- "1..*" Lecture : add >
-    RoundLecturePlan .left. Professor
-    RoundLecturePlan .left. Assistant
-
-    interface CurriculumUsecase {
-        addSubjectInCurriculum(subject: Subject)
-        findSubject(subject: Subject): Subject
-        newRound(this): Curriculum
-        generatePlan(): RoundLecturePlan
-        getHollydays(startDate: Date, endDate: Date): List<Hollyday>
-        calculateEndDate(): LocalDate
-        saveCurriculum(curriculum: Curriculum): Curriculum
-    }
-
-    interface SubjectUsecase {
-        setSyllabus(syllabus: Syllabus)
-        getCurriculums(subject: Subject) : Curriculum
-        getSyllabusInSubject(subjectId: UUID) : List<Syllabus>
-        findProfessor(professorName: String): List<Professor>
-    }
-
-    interface SyllabusUsecase {
-        addLecture(lecture: Lecture)
-        findProfessor(professor: Professor): List<Professor>
-        findAssistant(assistant: Assistant): List<Assistant>
-    }
-
-    class CurriculumService  
-    class SubjectService
-    class SyllabusService
-
-    CurriculumUsecase <|.. CurriculumService
-    SubjectUsecase <|.. SubjectService 
-    SyllabusUsecase <|.. SyllabusService 
-
-    package port {
-        interface QueryPort
-        interface CommandPort
-    }
-    note left 
-        port는 service 구현하면서 필요한 것 추가 
-        CQRS 유지하기 
-    end note
-
-    CurriculumService ..> QueryPort  
-    SubjectService ..> QueryPort
-    SyllabusService ..> QueryPort
-    CurriculumService ..> CommandPort  
-    SubjectService ..> CommandPort
-    SyllabusService ..> CommandPort
+	Lecture "lectures [1..*]" <--* "1" Syllabus : add <
 }
 
-component masterCode {
+rectangle "학습과정설계" {
+	class Curriculum {
+		name: String
+		round: Number[1..*] = 1L
+		target: String[*] = null
+		content: String
+		classManager: Manager
+		start: Date
+		end: Date
+		closed: Boolean
+		---
+		isClosed(): Boolean {today > end | true} 
+		newRound(): Curriculum {new (this.round + 1)}
+	}
 
-    enum LectureMethod {
-        ONLINE 
-        OFFLINE
-        BOTH
-    }
+	class Subject {
+		title: String
+		category: String { 자격증 | 교과 | 어학  }
+	}
+
+
+	Curriculum "*" --> "subjects [0..*]"  Subject : add >
 }
 
-component hollyday {
+Subject "*" --> "syllabus [0..*]" Syllabus : set >
 
-    class Hollyday {
-        lectureDay: Date
-        isHollyday: Boolean
-    }
+
+component Attach {
+	class AttachedFile {}
 }
+note bottom of Attach 
+기존에 등록된 파일이 있으면 
+공유해서 사용한다
+검색할때는 동일 과목의 
+타 계획서의 강좌를 조회한다  
+end note
 
-component user {
-    interface User {
-        id: UUID
-        userName: String
-        password: String
-    }
-}
+Lecture "[0..*]" *-up-> "attaches [0..*]" AttachedFile : add >
 
-model -> masterCode
-model --> hollyday
-model ---> user
+
+
 @enduml
 ```
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
