@@ -1,7 +1,7 @@
 {
   "type": "excalidraw",
   "version": 2,
-  "source": "https://excalidraw-jetbrains-plugin",
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
   "elements": [
     {
       "type": "rectangle",
@@ -897,8 +897,8 @@
     },
     {
       "type": "rectangle",
-      "version": 499,
-      "versionNonce": 849588956,
+      "version": 503,
+      "versionNonce": 1264043847,
       "isDeleted": false,
       "id": "R3UNhBuuikg7XG09I-KGz",
       "fillStyle": "solid",
@@ -907,8 +907,8 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1043.5368859767914,
-      "y": 38.3671875,
+      "x": 1043.6540734767914,
+      "y": 37.77734375,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#a5d8ff",
       "width": 130.33203125,
@@ -927,14 +927,14 @@
           "id": "JpWm-Qv9C1V2lI2ucefQ4"
         }
       ],
-      "updated": 1729312120180,
+      "updated": 1732515318817,
       "link": null,
       "locked": false
     },
     {
       "type": "text",
-      "version": 658,
-      "versionNonce": 473217116,
+      "version": 699,
+      "versionNonce": 1542830729,
       "isDeleted": false,
       "id": "JpWm-Qv9C1V2lI2ucefQ4",
       "fillStyle": "solid",
@@ -943,34 +943,34 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1063.1829125881195,
-      "y": 89.515625,
+      "x": 1057.2761056423187,
+      "y": 78.92578125,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "#ffec99",
-      "width": 91.03997802734375,
-      "height": 20,
+      "width": 103.08796691894531,
+      "height": 40,
       "seed": 1297585252,
       "groupIds": [],
       "frameId": null,
       "roundness": null,
       "boundElements": [],
-      "updated": 1729312127889,
+      "updated": 1732515328356,
       "link": null,
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "교육과정 설계",
+      "text": "교육과정 설계\n(학습과정 설계)",
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "R3UNhBuuikg7XG09I-KGz",
-      "originalText": "교육과정 설계",
+      "originalText": "교육과정 설계\n(학습과정 설계)",
       "lineHeight": 1.25,
-      "baseline": 14
+      "baseline": 34
     },
     {
       "type": "arrow",
-      "version": 483,
-      "versionNonce": 1564899420,
+      "version": 491,
+      "versionNonce": 251533479,
       "isDeleted": false,
       "id": "HoRxEPx6UpVGToWr-cOG9",
       "fillStyle": "solid",
@@ -980,11 +980,11 @@
       "opacity": 100,
       "angle": 0,
       "x": 904.6770435802639,
-      "y": 104.08073545148447,
+      "y": 103.93318875972136,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 120.4921875,
-      "height": 1.1832403228925372,
+      "width": 120.609375,
+      "height": 0.9131952991127292,
       "seed": 632252388,
       "groupIds": [],
       "frameId": null,
@@ -992,7 +992,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1729312109362,
+      "updated": 1732515318817,
       "link": null,
       "locked": false,
       "startBinding": {
@@ -1014,8 +1014,8 @@
           0
         ],
         [
-          120.4921875,
-          1.1832403228925372
+          120.609375,
+          0.9131952991127292
         ]
       ]
     },
