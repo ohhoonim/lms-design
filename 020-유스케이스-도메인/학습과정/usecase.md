@@ -4,7 +4,9 @@
 
 ```plantuml
 @startuml
+skinparam monochrome reverse
 left to right direction
+
 :교수자: as professor
 :관리자: as manager
 

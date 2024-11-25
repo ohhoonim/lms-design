@@ -1,7 +1,10 @@
 # 수강 
 
+## 유스케이스
+
 ```plantuml
 @startuml
+skinparam monochrome reverse
 left to right direction
 
 title 수강
@@ -31,4 +34,3 @@ student --> req_i
 req_g --> pg
 @enduml
 ```
-
