@@ -8,6 +8,8 @@
 @startuml
 skinparam monochrome reverse
 
+title 강의계획서 작성
+
 |관리자|
 start
 :<<REQ-O>>\n학습과정 관리|
@@ -32,6 +34,8 @@ stop
 ```plantuml
 @startuml
 skinparam monochrome reverse
+
+title 학습과정 관리 
 
 |관리자|
 start
