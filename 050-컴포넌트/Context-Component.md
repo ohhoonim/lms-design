@@ -4,7 +4,9 @@
 
 ```plantuml
 @startuml
+skinparam monochrome reverse
 left to right direction
+
 component components {
     [메뉴관리] <<REQ-NF1>>
     [회원관리] <<REQ-NF2>>

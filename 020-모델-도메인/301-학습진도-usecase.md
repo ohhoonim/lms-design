@@ -2,6 +2,7 @@
 
 ```plantuml
 @startuml
+skinparam monochrome reverse
 left to right direction
 
 title 학습진도 
